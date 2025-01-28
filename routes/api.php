@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnimaisController;
 use App\Http\Controllers\ExamesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -34,13 +35,33 @@ Route::post('/exames/atualizar/{id}', [ExamesController::class, 'update']);
 Route::delete('/exames/{id}', [ExamesController::class, 'delete']);
 
 //Rotas de Usuários
-//create
-Route::post('/usuarios/criar', [UserController::class, 'create']);
-//read - all
-Route::get('/usuarios', [UserController::class, 'index']);
-//Read Individual
-Route::get('/usuarios/{id}', [UserController::class, 'show']);
-//update
-Route::post('/usuarios/atualizar/{id}', [UserController::class, 'update']);
-//delete
-Route::delete('/usuarios/{id}', [UserController::class, 'delete']);
+Route::group(['prefix' => 'usuarios'], function(){
+    //create
+    Route::post('/criar', [UserController::class, 'create']);
+    //read - all
+    Route::get('/', [UserController::class, 'index']);
+    //Read Individual
+    Route::get('/{id}', [UserController::class, 'show']);
+    //update
+    Route::post('/atualizar/{id}', [UserController::class, 'update']);
+    //delete
+    Route::delete('/{id}', [UserController::class, 'delete']);
+});
+
+//Rotas de Animais
+Route::group(['prefix' => 'animais'], function(){
+    //create
+    Route::post('/criar', [AnimaisController::class, 'create']);
+    //read - all
+    Route::get('/', [AnimaisController::class, 'index']);
+    //Read Individual
+    Route::get('/{id}', [AnimaisController::class, 'show']);
+    //update
+    Route::post('/atualizar/{id}', [AnimaisController::class, 'update']);
+    //delete
+    Route::delete('/{id}', [AnimaisController::class, 'delete']);
+});
+
+
+
+
