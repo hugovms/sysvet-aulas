@@ -2,84 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consultas;
+use App\Models\Consulta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ConsultasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        // select * from consultas;
+        $consultas = Consulta::all();
+        return $consultas;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $consulta = null;
+        try{
+
+            $consulta = new Consulta();
+            $consulta->id_agendamento = $request->get('id_agendamento');
+            $consulta->id_veterinario = $request->get('id_veterinario');
+            $consulta->id_animal = $request->get('id_animal');
+            $consulta->imagem = $request->get('imagem');
+            $consulta->observacoes = $request->get('observacoes');
+            $consulta->animal_id = $request->get('animal_id');
+            $dataFormatada = Carbon::createFromFormat('d/m/Y H:i', $request->get('data_consulta'))->toDateTimeString();
+            $consulta->data_consulta = $dataFormatada;
+            $consulta->valor = $request->get('valor');
+            $consulta->save();
+
+        }catch(\Exception $e){
+            return $e;
+        }
+
+        return $consulta;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        //
+        $consulta = Consulta::find($id);
+        return $consulta;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Consultas  $consultas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Consultas $consultas)
+
+    public function update(Request $request, $id)
     {
-        //
+        $consulta = Consulta::find($id);
+        $consulta->id_agendamento = $request->get('id_agendamento');
+        $consulta->id_veterinario = $request->get('id_veterinario');
+        $consulta->id_animal = $request->get('id_animal');
+        $consulta->imagem = $request->get('imagem');
+        $consulta->observacoes = $request->get('observacoes');
+        $consulta->animal_id = $request->get('animal_id');
+        $dataFormatada = Carbon::createFromFormat('d/m/Y H:i', $request->get('data_consulta'))->toDateTimeString();
+        $consulta->data_consulta = $dataFormatada;
+        $consulta->valor = $request->get('valor');
+        $consulta->save();
+        return $consulta;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Consultas  $consultas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Consultas $consultas)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Consultas  $consultas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Consultas $consultas)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Consultas  $consultas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Consultas $consultas)
-    {
-        //
+        $consulta = Consulta::find($id);
+        if($consulta == null){
+            return 'Consulta não encontrada!';
+        }
+        $consulta->delete();
+        return $consulta;
     }
 }

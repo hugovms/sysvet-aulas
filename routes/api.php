@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnimaisController;
 use App\Http\Controllers\ExamesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ConsultasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,12 @@ Route::group(['prefix' => 'animais'], function(){
     Route::delete('/{id}', [AnimaisController::class, 'delete']);
 });
 
-
-
+// /api/consultas/criar
+Route::group(['prefix' => 'consultas'], function(){
+    Route::get('/',  [ConsultasController::class, 'index']);
+    Route::post('/criar', [ConsultasController::class, 'create']);
+    Route::post('/atualizar/{id}', [ConsultasController::class, 'update']);
+    Route::get('/{id}', [ConsultasController::class, 'show']);
+    Route::delete('/{id}', [ConsultasController::class, 'delete']);
+});
 

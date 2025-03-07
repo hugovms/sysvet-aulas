@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Consultas extends Model
+class Consulta extends Model
 {
     use HasFactory;
 
@@ -14,9 +14,9 @@ class Consultas extends Model
         'id_veterinario',
         'id_animal',
         'imagem',
-        'observa,coes'
+        'observacoes',
         'animal_id',
-        'data_consu,lta'
+        'data_consulta',
         'valor',
-    ]
+    ];
 }
