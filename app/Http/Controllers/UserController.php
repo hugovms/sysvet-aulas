@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,6 +24,13 @@ class UserController extends Controller
 
     public function create(Request $request){
         $data = $request->all();
+
+        if($data['email']){
+            $checkEmail = User::where('email', $data['email'])->count();
+            if($checkEmail > 0){
+                throw new Exception('Já existe um usuário com esse e-mail cadastrado!');
+            }
+        }
 
         $user = new User();
         $user->name = $data['nome'];

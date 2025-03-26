@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnimaisController;
 use App\Http\Controllers\ExamesController;
+use App\Http\Controllers\UploadsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConsultasController;
 use Illuminate\Http\Request;
@@ -38,14 +39,17 @@ Route::delete('/exames/{id}', [ExamesController::class, 'delete']);
 //Rotas de Usuários
 Route::group(['prefix' => 'usuarios'], function(){
     //create
+    // POST /usuarios/criar
     Route::post('/criar', [UserController::class, 'create']);
     //read - all
     Route::get('/', [UserController::class, 'index']);
-    //Read Individual
+    //Read Individual /usuarios/id
     Route::get('/{id}', [UserController::class, 'show']);
     //update
+    // POST /usuarios/atualizar/1
     Route::post('/atualizar/{id}', [UserController::class, 'update']);
     //delete
+    // DELETE /usuarios/id
     Route::delete('/{id}', [UserController::class, 'delete']);
 });
 
@@ -72,3 +76,4 @@ Route::group(['prefix' => 'consultas'], function(){
     Route::delete('/{id}', [ConsultasController::class, 'delete']);
 });
 
+Route::post('/upload', [UploadsController::class, 'upload']);
