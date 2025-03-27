@@ -10,7 +10,7 @@ class AnimaisController extends Controller
 
     public function index()
     {
-        return Animais::paginate(10);
+        return Animais::with('dono')->paginate(10);
     }
 
     public function create(Request $request)

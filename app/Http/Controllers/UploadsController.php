@@ -27,8 +27,8 @@ class UploadsController extends Controller
     public function _upload($image, $path, $width = null){
         try{
             $nameOnly = preg_replace('/\..+$/', '', $image->getClientOriginalName());
-            $store = Storage::putFileAs($path, $image, $nameOnly . '.' . $image->getClientOriginalExtension(), 'public');
-            return $store;
+            $store = Storage::disk('public')->putFileAs($path, $image, $nameOnly . '.' . $image->getClientOriginalExtension());
+            return asset('/storage/' . $store);
         } catch(\Exception $ex){
             throw $ex;
         }

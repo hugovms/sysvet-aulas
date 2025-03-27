@@ -19,4 +19,8 @@ class Animais extends Model
       'descricao',
       'dono_id',
     ];
+
+    public function dono(){
+        return $this->hasOne(User::class,'id', 'dono_id');
+    }
 }
