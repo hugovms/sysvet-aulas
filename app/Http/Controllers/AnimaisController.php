@@ -33,7 +33,7 @@ class AnimaisController extends Controller
 
     public function show($id)
     {
-        $animal = Animais::find($id);
+        $animal = Animais::where('id', '=',$id)->with('dono')->first();
 
         if(!$animal){
             return abort(404, 'Erro! Animal não encontrado.');
@@ -67,7 +67,7 @@ class AnimaisController extends Controller
     }
 
 
-    public function destroy($id)
+    public function delete($id)
     {
         $animal = Animais::find($id);
 

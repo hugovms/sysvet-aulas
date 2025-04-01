@@ -15,7 +15,6 @@ class Consulta extends Model
         'id_animal',
         'imagem',
         'observacoes',
-        'animal_id',
         'data_consulta',
         'valor',
     ];
