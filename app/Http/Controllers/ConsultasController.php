@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agendamentos;
 use App\Models\Consulta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,7 +16,29 @@ class ConsultasController extends Controller
         $consultas = Consulta::all();
         return $consultas;
     }
+    public function createConsulta(Request $request){
+        $consulta = null;
+        try{
+            $agendamento = new Agendamentos();
+            $agendamento->id_cliente = $request->get('cliente')['value'];
+            $agendamento->data_agendamento = $request->get('data');
+            $agendamento->status = 'Ativo';
+            $agendamento->save();
 
+            $consulta = new Consulta();
+            $consulta->id_agendamento = $agendamento->id;
+
+            $consulta->id_veterinario = $request->get('veterinario')['value'];
+            $consulta->id_animal = $request->get('animal')['value'];
+            $consulta->imagem = $request->get('imagem');
+            $consulta->observacoes = $request->get('descricao');
+            $consulta->data_consulta = $request->get('data');
+            $consulta->valor = $request->get('valor');
+            $consulta->save();
+        }catch(\Exception $ex){
+            throw $ex;
+        }
+    }
     public function create(Request $request)
     {
         $consulta = null;

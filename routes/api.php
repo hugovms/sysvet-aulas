@@ -70,6 +70,7 @@ Route::group(['prefix' => 'animais'], function(){
 // /api/consultas/criar
 Route::group(['prefix' => 'consultas'], function(){
     Route::get('/',  [ConsultasController::class, 'index']);
+    Route::post('/create-consulta', [ConsultasController::class, 'createConsulta']);
     Route::post('/criar', [ConsultasController::class, 'create']);
     Route::post('/atualizar/{id}', [ConsultasController::class, 'update']);
     Route::get('/{id}', [ConsultasController::class, 'show']);
